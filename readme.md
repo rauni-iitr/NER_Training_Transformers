@@ -1,37 +1,21 @@
-## NER using Transformers
+### Data Snapshot:
+![image info](./assets/data_snapshot.png)
+***
 
+### NER on medical data using Transformers and HuggingFaceHub
+
+***
 1. Train custom NER model continually; one on top of other on three datasets.
 
-2. In every iteration of model train, take 100 samples of previous train set and add it to current dataset, on which the model is training.
+2. In every iteration of model train, 100 samples of previous train set is added to current dataset, on which the model is training.
 
-3. In every iteration, take 20% test_set out of whole dataset and merge it with previous test_set, which makes complete "final_test_set" for model evaluation in that iteration.
+3. In every iteration, 20% test_set is kept out as test data of whole dataset and merge it with previous test_set, which makes complete "final_test_set" for model evaluation in that iteration.
 
-4. After continual training, train a model on complete data (G1 + G2 + G3), at once, keep 20% data as test set.
+4. After continual training, training a model on complete data (G1 + G2 + G3), at once, keep 20% data as test set.
 
-5. Push each of the iterative models to huggingface-hub.
+5. Pushing each of the iterative models to huggingface-hub.
 
 6. F1 scores of the entity_labels individually and overall for every iteration of training.
-
-## Saved model links:
-
-1. Link to trained Hugging Face Models:
-
-    **T1 - https://huggingface.co/raunak6898/bert-finetuned-ner-t1** <br>
-    **T2 - https://huggingface.co/raunak6898/bert-finetuned-ner-t2**
-    <br>
-    **T3 - https://huggingface.co/raunak6898/bert-finetuned-ner-t3**
-    <br>
-    **T4(all data trained together) - https://huggingface.co/raunak6898/bert-finetuned-ner-all_data**
-
-3. CSV for metric calculated on trained model 
-
-4. Training Code(see documented notebook - ***training_notebooks.ipynb***, kindly ignore rendering issues) and a functional script for new training and evaluation (see ***train_new.py***)
-
-## Data Findings
-
-* In 3 datasets, mostly clean data with no missing data, except for few entity labels index spilling over texts - Cleaned in training notebook and documented . 
-
-* Another important finding is that, the start character for all entities are offset one to the right index, the end index is fine , so to fetch the entity text we will have to use [start_idx-1] .
 
 ## Approach
 
@@ -55,7 +39,26 @@
 
 6. See - ***train_new.py*** for running more trainings and evaluating new iterative training models, provided with two separate functions - ***utils.py*** for utility functions.
 
+## Saved model links:
 
+1. Link to trained Hugging Face Models:
+
+    **T1 - https://huggingface.co/raunak6898/bert-finetuned-ner-t1** <br>
+    **T2 - https://huggingface.co/raunak6898/bert-finetuned-ner-t2**
+    <br>
+    **T3 - https://huggingface.co/raunak6898/bert-finetuned-ner-t3**
+    <br>
+    **T4(all data trained together) - https://huggingface.co/raunak6898/bert-finetuned-ner-all_data**
+
+3. CSV for metric calculated on trained model 
+
+4. Training Code(see documented notebook - ***training_notebooks.ipynb***, kindly ignore rendering issues) and a functional script for new training and evaluation (see ***train_new.py***)
+
+## Data Findings
+
+* In 3 datasets, mostly clean data with no missing data, except for few entity labels index spilling over texts - Cleaned in training notebook and documented . 
+
+* Another important finding is that, the start character for all entities are offset one to the right index, the end index is fine , so to fetch the entity text we will have to use [start_idx-1] .
 #### Links:
  - GitHub: https://github.com/rauni-iitr
  - LinkedIn: https://www.linkedin.com/in/raunak-7068/
